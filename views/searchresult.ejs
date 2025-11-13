@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Search Results for "<%= keyword %>"</title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1>Search Results for "<%= keyword %>"</h1>
+    <% if (searchResults.length > 0) { %>
+      <ul>
+        <% searchResults.forEach(function(book) { %>
+          <li><strong><%= book.name %></strong> – £<%= book.price %></li>
+        <% }); %>
+      </ul>
+    <% } else { %>
+      <p>No books found matching "<%= keyword %>".</p>
+    <% } %>
+  </body>
+</html>
