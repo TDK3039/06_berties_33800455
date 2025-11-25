@@ -3,7 +3,6 @@ var express = require ('express')
 var ejs = require('ejs')
 const path = require('path')
 
-
 //new changes that i made
 var mysql = require('mysql2');
 //load env variables
@@ -16,9 +15,6 @@ var session = require('express-session');
 // Create the express application object
 const app = express()
 const port = 8000
-
-const BASE_Path = process.env.BASE_Path || '/';
-app.locals.basePath = BASE_Path;
 
 // Tell Express that we want to use EJS as the templating engine
 app.set('view engine', 'ejs')
