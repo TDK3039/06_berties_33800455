@@ -8,7 +8,7 @@ const db = global.db;
 //check if user is logged in
 const redirectLogin = (req, res, next) => {
     if (!req.session.userId){
-        res.redirect('./login');
+        res.redirect('/users/login');
     } else {
         next();
     }
@@ -94,7 +94,7 @@ router.post('/loggedin', function (req, res, next){
             if (match === true){
                 db.query("INSERT INTO audit (username, status) VALUES (?, ?)", [username, "SUCCESS"]);
                 req.session.userId = username; //save the user session
-                res.redirect('/users/list');   //Protect page - redirect
+                res.redirect('/');   //Protect page - redirect
             }else{
                 db.query("INSERT INTO audit (username, status) VALUES (?, ?)", [username, "FAILURE"]);
                 res.send("Login has failed: Incorrect Password.");
