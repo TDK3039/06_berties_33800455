@@ -9,6 +9,8 @@ var mysql = require('mysql2');
 require('dotenv').config();
 console.log('Loaded DB_USER:', process.env.DB_USER);
 
+//Express-session
+var session = require('express-session');
 
 // Create the express application object
 const app = express()
@@ -22,6 +24,16 @@ app.use(express.urlencoded({ extended: true }))
 
 // Set up public folder (for css and static js)
 app.use(express.static(path.join(__dirname, 'public')))
+
+//Session create
+app.use(session({
+    secret: 'somerandomstuff', //sign session ID cookie
+    resave: false,             //nothing changed - do not save the session
+    saveUninitialized: false,  // No empty sessions
+    cookie: {                  
+        expires: 600000        // session expires - 10 minutes
+    }
+}))
 
 // Define our application-specific data
 app.locals.shopData = {shopName: "Bertie's Books"}

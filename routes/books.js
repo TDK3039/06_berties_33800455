@@ -3,6 +3,15 @@ const express = require("express");
 const { search } = require("./main");
 const router = express.Router()
 
+//Check if user is logged in
+const redirectLogin = (req, res, next) => {
+    if (!req.session.userId){
+        res.redirect('/users/login');
+    } else{
+        next();
+    }
+};
+
 router.get('/search',function(req, res, next){
     res.render("search.ejs")
 });
@@ -44,7 +53,7 @@ router.get('/bargainbooks', function(req, res, next) {
 });
 
 //Adding books
-router.get('/addbook', function (req, res, next) {
+router.get('/addbook', redirectLogin, function (req, res, next) {
     res.render('addbook.ejs');
 });
 

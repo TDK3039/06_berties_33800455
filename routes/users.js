@@ -5,6 +5,15 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const db = global.db;
 
+//check if user is logged in
+const redirectLogin = (req, res, next) => {
+    if (!req.session.userId){
+        res.redirect('./login');
+    } else {
+        next();
+    }
+}
+
 router.get('/register', function (req, res, next) {
     res.render('register.ejs')
 })
@@ -40,7 +49,7 @@ router.post('/registered', function (req, res, next) {
     });                                                                     
 }); 
 //List users route
-router.get('/list', function (req, res, next){
+router.get('/list', redirectLogin, function (req, res, next){
     const sql = "SELECT username, first, last, email FROM users";
     db.query(sql, (err, result) => {
         if(err){
@@ -84,7 +93,8 @@ router.post('/loggedin', function (req, res, next){
 
             if (match === true){
                 db.query("INSERT INTO audit (username, status) VALUES (?, ?)", [username, "SUCCESS"]);
-                res.send("Login is Successful!! Welcome Back, " + username + ".");
+                req.session.userId = username; //save the user session
+                res.redirect('/users/list');   //Protect page - redirect
             }else{
                 db.query("INSERT INTO audit (username, status) VALUES (?, ?)", [username, "FAILURE"]);
                 res.send("Login has failed: Incorrect Password.");
@@ -93,7 +103,19 @@ router.post('/loggedin', function (req, res, next){
     });
 })
 
-router.get('/audit', function (req, res, next){
+//Route - Logout
+router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err){
+            return res.redirect('/users/list');
+        }
+        res.clearCookie('connect.sid');
+        res.redirect('/users/login');
+    })
+})
+
+// Route - audit
+router.get('/audit', redirectLogin, function (req, res, next){
     const sql = "SELECT username, status, timestamp FROM audit ORDER BY timestamp DESC";
     db.query(sql, (err, result) => {
         if (err){
