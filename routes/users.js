@@ -8,7 +8,7 @@ const db = global.db;
 //check if user is logged in
 const redirectLogin = (req, res, next) => {
     if (!req.session.userId){
-        res.redirect('/users/login');
+        res.redirect(req.app.locals.basePath + '/users/login');
     } else {
         next();
     }
