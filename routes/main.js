@@ -23,9 +23,9 @@ router.get('/about',function(req, res, next){
 router.get('/logout', redirectLogin, (req, res) => {
     req.session.destroy(err => {
         if (err){
-            return res.redirect('/');
+            return res.redirect('../');
         }
-        res.send("You are now logged out. <a href='/'>Home</a>");
+        res.send("You are now logged out. <a href='../'>Home</a>");
     })
 })
 
