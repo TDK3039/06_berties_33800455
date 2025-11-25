@@ -94,7 +94,7 @@ router.post('/loggedin', function (req, res, next){
             if (match === true){
                 db.query("INSERT INTO audit (username, status) VALUES (?, ?)", [username, "SUCCESS"]);
                 req.session.userId = username; //save the user session
-                res.redirect('/');   //Protect page - redirect
+                res.redirect(req.app.locals.basePath);   //Protect page - redirect
             }else{
                 db.query("INSERT INTO audit (username, status) VALUES (?, ?)", [username, "FAILURE"]);
                 res.send("Login has failed: Incorrect Password.");
