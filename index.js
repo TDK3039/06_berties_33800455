@@ -12,6 +12,9 @@ console.log('Loaded DB_USER:', process.env.DB_USER);
 //Express-session
 var session = require('express-session');
 
+//Import express-sanistiser
+const expressSanitizer = require('express-sanitizer');
+
 // Create the express application object
 const app = express()
 const port = 8000
@@ -21,6 +24,9 @@ app.set('view engine', 'ejs')
 
 // Set up the body parser 
 app.use(express.urlencoded({ extended: true }))
+
+//Create the input for the sanitiser 
+app.use(expressSanitizer());
 
 // Set up public folder (for css and static js)
 app.use(express.static(path.join(__dirname, 'public')))

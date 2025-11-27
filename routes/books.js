@@ -18,7 +18,7 @@ router.get('/search',function(req, res, next){
 
 router.get('/search_result', function (req, res, next) {
     //searching in the database
-    let keyword = req.query.search_text;
+    let keyword = req.sanitize(req.query.search_text);
     let sqlquery = "SELECT * FROM books WHERE name LIKE ?";
     db.query(sqlquery, ['%' + keyword + '%'], (err, result) => {
         if(err){
@@ -58,13 +58,17 @@ router.get('/addbook', redirectLogin, function (req, res, next) {
 });
 
 router.post('/bookadded', function (req, res, next) {
+    //Book title - sanitise
+    const bookName = req.sanitize(req.body.name);
+    const bookPrice = req.body.price;
+
     let sqlquery = "INSERT INTO books (name, price) VALUES (?,?)";
-    let newrecord = [req.body.name, req.body.price];
+    let newrecord = [bookName, bookPrice];
     db.query(sqlquery, newrecord, (err, result) => {
         if (err) {
             next(err);
         } else {
-            res.send('This book is added to database, name: ' + req.body.name + ', price: £' + req.body.price);
+            res.send('This book is added to database, name: ' + bookName + ', price: £' + bookPrice);
         }
     });
 });
