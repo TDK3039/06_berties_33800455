@@ -44,7 +44,7 @@ router.post('/registered',
     const lastName = req.sanitize(req.body.last);
     const email = req.sanitize(req.body.email);
     const username = req.sanitize(req.body.username);
-    const plainPassword = req.sanitize(req.body.password);
+    const plainPassword = req.body.password;
 
     bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword){
         if (err){
