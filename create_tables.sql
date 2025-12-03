@@ -1,0 +1,26 @@
+USE berties_books;
+
+-- Users table
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  first VARCHAR(255),
+  last VARCHAR(255),
+  email VARCHAR(255),
+  hashedPassword VARCHAR(255) NOT NULL
+);
+
+-- Books table
+CREATE TABLE IF NOT EXISTS books (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  price DECIMAL(5,2) NOT NULL
+);
+
+-- Audit table
+CREATE TABLE IF NOT EXISTS audit (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255),
+  status VARCHAR(50),
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
