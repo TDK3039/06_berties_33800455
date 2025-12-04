@@ -56,6 +56,6 @@ Task 8: Protect other fields from XSS
 # Examples
 - `/api/books` - all books
 - `/api/books?search=harry` - books with harry in the name
-- `/api/books?minprice=10&max_price=20` - books priced between £10 and £20
+- `/api/books?minprice=10 &  max_price=20` - books priced between £10 and £20
 - `/api/books?search=world&sort=name` - filtered and sorted alphabetically
 
