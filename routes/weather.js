@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
 
 router.get('/search', (req, res, next) => {
     let apiKey = process.env.OPENWEATHER_API_KEY;
+    console.log("API KEY:", apiKey);
     let city = req.query.city || 'London';
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
