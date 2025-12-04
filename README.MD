@@ -44,3 +44,18 @@ Task 8: Protect other fields from XSS
 - Search Form: Search keyword sanitised - prevent malicious scripts.
 - Other Routes: Audit, List Users, Bargain Books don’t accept input - sanitisation not required.
 
+# API Documentation
+- Base path: `/api`
+- GET `/api/books` - returns a list of books as JSON
+
+# Query Parameters
+- `search` - `/api/books?seach=world`
+- `minprice` - `/api/books?max_price=20`
+- `sort` - name and price - `/api/books?sort=price`
+
+# Examples
+- `/api/books` - all books
+- `/api/books?search=harry` - books with harry in the name
+- `/api/books?minprice=10&max_price=20` - books priced between £10 and £20
+- `/api/books?search=world&sort=name` - filtered and sorted alphabetically
+
