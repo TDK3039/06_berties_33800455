@@ -40,4 +40,15 @@ a:link {
     color: blue;
     text-decoration: none;
     padding:5px;
+    
   }
+    
+  /*Weather forecast */
+  .weather-box strong {
+    font-size: 1.3em;
+    color:darkcyan;
+    display: block;
+    margin-bottom: 10px;
+    
+  }
+  
